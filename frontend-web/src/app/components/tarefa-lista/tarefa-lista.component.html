@@ -1,0 +1,38 @@
+@if (tarefas.length === 0) {
+  <p class="vazio">Nenhuma tarefa encontrada.</p>
+} @else {
+  <table>
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Título</th>
+        <th>Responsável</th>
+        <th>Status</th>
+        <th>Prioridade</th>
+        <th>Ações</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (tarefa of tarefas; track tarefa.id) {
+        <tr>
+          <td>{{ tarefa.id }}</td>
+          <td>
+            <strong>{{ tarefa.titulo }}</strong>
+            @if (tarefa.descricao) {
+              <div class="descricao">{{ tarefa.descricao }}</div>
+            }
+          </td>
+          <td>{{ tarefa.responsavel }}</td>
+          <td><span class="badge" [class]="'badge ' + tarefa.status">{{ statusLabel[tarefa.status] }}</span></td>
+          <td>{{ prioridadeLabel[tarefa.prioridade] }}</td>
+          <td>
+            <div class="acoes">
+              <button (click)="editar.emit(tarefa)">Editar</button>
+              <button class="perigo" (click)="excluir.emit(tarefa)">Excluir</button>
+            </div>
+          </td>
+        </tr>
+      }
+    </tbody>
+  </table>
+}
