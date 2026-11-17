@@ -1,0 +1,40 @@
+<header>
+  <h1>TaskFlow</h1>
+  <p>Gerenciador de tarefas da equipe</p>
+</header>
+
+<main>
+  <section class="formulario">
+    <app-tarefa-form
+      [tarefa]="tarefaEmEdicao"
+      (salvar)="salvar($event)"
+      (cancelar)="cancelarEdicao()" />
+  </section>
+
+  <section class="lista">
+    <div class="barra">
+      <label>
+        Filtrar por status:
+        <select [(ngModel)]="filtroStatus" (ngModelChange)="carregar()">
+          <option value="">Todos</option>
+          <option value="PENDENTE">Pendente</option>
+          <option value="EM_ANDAMENTO">Em andamento</option>
+          <option value="CONCLUIDA">Concluída</option>
+        </select>
+      </label>
+      <button (click)="carregar()">Atualizar</button>
+    </div>
+
+    @if (mensagem) {
+      <p class="sucesso">{{ mensagem }}</p>
+    }
+    @if (erro) {
+      <p class="falha">{{ erro }}</p>
+    }
+
+    <app-tarefa-lista
+      [tarefas]="tarefas"
+      (editar)="editar($event)"
+      (excluir)="excluir($event)" />
+  </section>
+</main>

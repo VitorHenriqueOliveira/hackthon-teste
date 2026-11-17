@@ -1,0 +1,51 @@
+<form [formGroup]="form" (ngSubmit)="enviar()" class="card">
+  <h2>{{ tarefa ? 'Editar tarefa #' + tarefa.id : 'Nova tarefa' }}</h2>
+
+  <label>
+    Título *
+    <input formControlName="titulo" placeholder="Ex.: Criar tela de login" />
+  </label>
+  @if (campoInvalido('titulo')) {
+    <small class="erro">O título é obrigatório.</small>
+  }
+
+  <label>
+    Descrição
+    <textarea formControlName="descricao" rows="3"></textarea>
+  </label>
+
+  <label>
+    Responsável *
+    <input formControlName="responsavel" placeholder="Ex.: Emerson" />
+  </label>
+  @if (campoInvalido('responsavel')) {
+    <small class="erro">O responsável é obrigatório.</small>
+  }
+
+  <div class="linha">
+    <label>
+      Status
+      <select formControlName="status">
+        <option value="PENDENTE">Pendente</option>
+        <option value="EM_ANDAMENTO">Em andamento</option>
+        <option value="CONCLUIDA">Concluída</option>
+      </select>
+    </label>
+
+    <label>
+      Prioridade
+      <select formControlName="prioridade">
+        <option value="BAIXA">Baixa</option>
+        <option value="MEDIA">Média</option>
+        <option value="ALTA">Alta</option>
+      </select>
+    </label>
+  </div>
+
+  <div class="botoes">
+    <button type="submit" class="primario">{{ tarefa ? 'Salvar alterações' : 'Cadastrar' }}</button>
+    @if (tarefa) {
+      <button type="button" (click)="cancelar.emit()">Cancelar</button>
+    }
+  </div>
+</form>
